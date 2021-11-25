@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MissionControl.StatusPage.Api", "MissionControl.StatusPage.Api\MissionControl.StatusPage.Api.csproj", "{34664601-5A3B-4270-8372-43C0FD9C752C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mission Control", "Mission Control", "{CFFD356A-26A4-4998-8577-D1671FD198D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MissionControl.StatusPage", "MissionControl.StatusPage\MissionControl.StatusPage.csproj", "{204CEA75-632E-4CB8-B835-273107C3015C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Santa Tracker", "Santa Tracker", "{E5C05D25-0419-45B0-87CF-4CE1F5EFA025}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaTracker.Generator", "SantaTracker.Generator\SantaTracker.Generator.csproj", "{581EC24C-A6DA-45FA-BCEF-FBB7328D6B6F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaTracker.Shared", "SantaTracker.Shared\SantaTracker.Shared.csproj", "{C09AB46F-85EF-480E-B36A-0999AA3770CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaTracker.Microservice.CurrentLocation", "SantaTracker.Microservice.CurrentLocation\SantaTracker.Microservice.CurrentLocation.csproj", "{A0E7FB2D-E633-4DA5-B6D7-FBA74F17F761}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaTracker.Microservice.DataArchival", "SantaTracker.Microservice.DataArchival\SantaTracker.Microservice.DataArchival.csproj", "{2005CAAB-1CE0-4229-A05B-5DF908307CFC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaTracker.Microservice.DeliveryBoard", "SantaTracker.Microservice.DeliveryBoard\SantaTracker.Microservice.DeliveryBoard.csproj", "{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{1D52A80B-ACDD-49FE-BEF6-4A9F976B8E06}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34664601-5A3B-4270-8372-43C0FD9C752C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34664601-5A3B-4270-8372-43C0FD9C752C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34664601-5A3B-4270-8372-43C0FD9C752C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34664601-5A3B-4270-8372-43C0FD9C752C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{204CEA75-632E-4CB8-B835-273107C3015C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{204CEA75-632E-4CB8-B835-273107C3015C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{204CEA75-632E-4CB8-B835-273107C3015C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{204CEA75-632E-4CB8-B835-273107C3015C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581EC24C-A6DA-45FA-BCEF-FBB7328D6B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581EC24C-A6DA-45FA-BCEF-FBB7328D6B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581EC24C-A6DA-45FA-BCEF-FBB7328D6B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581EC24C-A6DA-45FA-BCEF-FBB7328D6B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C09AB46F-85EF-480E-B36A-0999AA3770CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C09AB46F-85EF-480E-B36A-0999AA3770CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C09AB46F-85EF-480E-B36A-0999AA3770CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C09AB46F-85EF-480E-B36A-0999AA3770CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0E7FB2D-E633-4DA5-B6D7-FBA74F17F761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0E7FB2D-E633-4DA5-B6D7-FBA74F17F761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0E7FB2D-E633-4DA5-B6D7-FBA74F17F761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0E7FB2D-E633-4DA5-B6D7-FBA74F17F761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2005CAAB-1CE0-4229-A05B-5DF908307CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2005CAAB-1CE0-4229-A05B-5DF908307CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2005CAAB-1CE0-4229-A05B-5DF908307CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2005CAAB-1CE0-4229-A05B-5DF908307CFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{34664601-5A3B-4270-8372-43C0FD9C752C} = {CFFD356A-26A4-4998-8577-D1671FD198D2}
+		{204CEA75-632E-4CB8-B835-273107C3015C} = {CFFD356A-26A4-4998-8577-D1671FD198D2}
+		{581EC24C-A6DA-45FA-BCEF-FBB7328D6B6F} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
+		{C09AB46F-85EF-480E-B36A-0999AA3770CE} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
+		{A0E7FB2D-E633-4DA5-B6D7-FBA74F17F761} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
+		{2005CAAB-1CE0-4229-A05B-5DF908307CFC} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
+		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {950CEAEF-5F4D-4B70-9212-5306929AD4CD}
+	EndGlobalSection
+EndGlobal

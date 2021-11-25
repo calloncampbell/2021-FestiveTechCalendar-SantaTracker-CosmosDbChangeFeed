@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+    <UserSecretsId>fd738565-ac08-436f-b573-f0fed3210dcd</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="local.settings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.22.1" />
+	  <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+	  <PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="4.0.1" />
+	  <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.10" />
+	  <PackageReference Include="Microsoft.Extensions.Azure" Version="1.1.1" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
+	  <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SantaTracker.Shared\SantaTracker.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

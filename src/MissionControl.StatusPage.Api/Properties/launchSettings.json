@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MissionControl.StatusPage.Api": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --port 7074 --pause-on-error"
+    }
+  }
+}
