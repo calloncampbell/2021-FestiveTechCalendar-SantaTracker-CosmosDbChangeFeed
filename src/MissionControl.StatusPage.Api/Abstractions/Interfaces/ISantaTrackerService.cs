@@ -10,6 +10,6 @@ namespace MissionControl.StatusPage.Api.Abstractions.Interfaces
     public interface ISantaTrackerService
     {
         Task<(LocationEvent LocationEvent, double Cost)> GetSantaLocationFromMaterializedViewAsync(string flightNumber);
-        Task<(CityDelivery[] CitiesDelivered, double Cost)> GetCityDeliveryStatusFromMaterializedViewAsync(string[] cities);
+        Task<(List<CityDelivery> CitiesDelivered, double Cost)> GetCityDeliveryStatusFromMaterializedViewAsync(string[] cities);
     }
 }

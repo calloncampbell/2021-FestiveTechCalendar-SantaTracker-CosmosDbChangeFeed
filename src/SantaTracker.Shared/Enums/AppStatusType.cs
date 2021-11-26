@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MissionControl.StatusPage.Api.Abstractions.Enums
+namespace SantaTracker.Shared.Enums
 {
     public enum AppStatusType
     {

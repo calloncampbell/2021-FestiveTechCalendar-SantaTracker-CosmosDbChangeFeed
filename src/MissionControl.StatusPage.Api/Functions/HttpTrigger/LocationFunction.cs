@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using MissionControl.StatusPage.Api.Abstractions.Interfaces;
+using SantaTracker.Shared.Models;
 
 namespace MissionControl.StatusPage.Api.Functions.HttpTrigger
 {
@@ -28,10 +29,11 @@ namespace MissionControl.StatusPage.Api.Functions.HttpTrigger
             log.LogInformation("C# HTTP trigger function processed a request for CurrentLocationFunction");
 
             var result = await _santaTrackerService.GetSantaLocationFromMaterializedViewAsync(DateTime.Now.Year.ToString());
-            var response = new
-            {
-                cost = result.Cost,
-                currentLocation = result.LocationEvent
+            var response = new SantaLocationResponse()
+            {                
+                CurrentLocation = result.LocationEvent,
+                Cost = result.Cost,
+                UpdatedAt = DateTimeOffset.UtcNow
             };
             return new OkObjectResult(response);
         }
@@ -68,10 +70,10 @@ namespace MissionControl.StatusPage.Api.Functions.HttpTrigger
                                 "ANC" }; 
 
             var results = await _santaTrackerService.GetCityDeliveryStatusFromMaterializedViewAsync(cities);
-            var response = new
+            var response = new FlightSegmentStatusResponse()
             {
-                cost = results.Cost,
-                flightSegments = results.CitiesDelivered
+                Cost = results.Cost,
+                FlightSegments = results.CitiesDelivered
             };
             return new OkObjectResult(response);
         }

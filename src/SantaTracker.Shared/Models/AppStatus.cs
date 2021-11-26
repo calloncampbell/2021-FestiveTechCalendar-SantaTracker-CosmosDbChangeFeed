@@ -1,11 +1,8 @@
-﻿using MissionControl.StatusPage.Api.Abstractions.Enums;
+﻿using SantaTracker.Shared.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MissionControl.StatusPage.Api.Abstractions.Models
+namespace SantaTracker.Shared.Models
 {
     public class AppStatus
     {

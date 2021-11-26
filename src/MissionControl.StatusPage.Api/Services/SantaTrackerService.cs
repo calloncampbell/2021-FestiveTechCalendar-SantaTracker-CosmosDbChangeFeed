@@ -48,7 +48,7 @@ namespace MissionControl.StatusPage.Api.Services
             }
         }
 
-        public async Task<(CityDelivery[] CitiesDelivered, double Cost)> GetCityDeliveryStatusFromMaterializedViewAsync(string[] cities)
+        public async Task<(List<CityDelivery> CitiesDelivered, double Cost)> GetCityDeliveryStatusFromMaterializedViewAsync(string[] cities)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace MissionControl.StatusPage.Api.Services
                     locations.AddRange(page);
                 }
 
-                return (locations.ToArray(), cost);
+                return (locations.OrderBy(x=>x.RouteNumber).ToList(), cost);
             }
             catch (Exception ex)
             {

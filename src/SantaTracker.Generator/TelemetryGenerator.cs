@@ -208,7 +208,7 @@ namespace SantaTracker.Generator
 			Console.WriteLine($"Created {this._flightSegments.Length} flight segments");
 		}
 
-		public async Task ResetFlightSegments()
+		public async Task ResetFlightSegments(bool all)
 		{
 			var cities = await this._flightRepo.GetCities();
 			var flights = await this._flightRepo.GetFlightSegments();
@@ -216,27 +216,27 @@ namespace SantaTracker.Generator
 			// CurrentLocation container
 			var container = Cosmos.Client.GetContainer(Constants.CosmosDb.DatabaseName, Constants.CosmosDb.CurrentLocationContainerName);
 			var ctr = 0;
-			foreach (var flight in flights)
-			{
+			//foreach (var flight in flights)
+			//{
 				try
 				{
-					await container.DeleteItemAsync<object>(flight.RouteNumber.ToString(), new PartitionKey(flight.RouteNumber.ToString()));
+					await container.DeleteItemAsync<object>(DateTime.Now.Year.ToString(), new PartitionKey("location"));
 					ctr++;
 				}
 				catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
 				{
 				}
-			}
+			//}
 			Console.WriteLine($"Deleted {ctr} current locations");
 
 			// DeliveryBoard container
 			container = Cosmos.Client.GetContainer(Constants.CosmosDb.DatabaseName, Constants.CosmosDb.DeliveryBoardContainerName);
 			ctr = 0;
-			foreach (var city in cities)
+			foreach (var flight in flights)
 			{
 				try
 				{
-					await container.DeleteItemAsync<object>(city.Code, new PartitionKey(city.Code));
+					await container.DeleteItemAsync<object>(flight.ArrivalCity, new PartitionKey("location"));
 					ctr++;
 				}
 				catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -245,25 +245,28 @@ namespace SantaTracker.Generator
 			}
 			Console.WriteLine($"Deleted {ctr} city deliveries");
 
-			// Location container
-			container = Cosmos.Client.GetContainer(Constants.CosmosDb.DatabaseName, Constants.CosmosDb.LocationContainerName);
-			ctr = 0;
-			foreach (var flight in flights)
+			if (all)
 			{
-				var result = await this._flightRepo.QueryLocation(flight.RouteNumber.ToString());
-				var location = result.LocationEvent;
-				if (location != null)
+				// Location container
+				container = Cosmos.Client.GetContainer(Constants.CosmosDb.DatabaseName, Constants.CosmosDb.LocationContainerName);
+				ctr = 0;
+				foreach (var flight in flights)
 				{
-					var city = cities.First(a => a.Code == location.DepartureCity);
-					location.Latitude = city.Latitude;
-					location.Longitude = city.Longitude;
-					location.RemainingMiles = 0;
-					location.RemainingMinutes = 0;
-					await container.ReplaceItemAsync(location, location.Id, new PartitionKey(location.Id));
-					ctr++;
+					var result = await this._flightRepo.QueryLocation(flight.RouteNumber.ToString());
+					var location = result.LocationEvent;
+					if (location != null)
+					{
+						var city = cities.First(a => a.Code == location.DepartureCity);
+						location.Latitude = city.Latitude;
+						location.Longitude = city.Longitude;
+						location.RemainingMiles = 0;
+						location.RemainingMinutes = 0;
+						await container.ReplaceItemAsync(location, location.Id, new PartitionKey(location.Id));
+						ctr++;
+					}
 				}
+				Console.WriteLine($"Cleared {ctr} flight segment locations");
 			}
-			Console.WriteLine($"Cleared {ctr} flight segment locations");
 		}
 
 		public async Task GenerateData(bool continuous)

@@ -81,7 +81,8 @@ namespace SantaTracker.Generator
 				}
 				else if (operation.Matches("reset"))
 				{
-					await _generator.ResetFlightSegments();
+					var all = (arg1 == "-a");
+					await _generator.ResetFlightSegments(all);
 				}
 				else if (operation.Matches("help") || operation == "?")
 				{
@@ -107,7 +108,7 @@ namespace SantaTracker.Generator
 			Console.WriteLine("Usage:");
 			Console.WriteLine("  initialize    initialize database");
 			Console.WriteLine("  delete        delete database");
-			Console.WriteLine("  reset         reset flight data");
+			Console.WriteLine("  reset -a      reset flight data (-a for all data)");
 			Console.WriteLine("  generate -c   generate data (-c for continuous)");
 			Console.WriteLine("  cities        show cities");
 			Console.WriteLine("  segments      show flight segments");

@@ -7,9 +7,9 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using MissionControl.StatusPage.Api.Abstractions.Models;
+using SantaTracker.Shared.Models;
 using System.Collections.Generic;
-using MissionControl.StatusPage.Api.Abstractions.Enums;
+using SantaTracker.Shared.Enums;
 
 namespace MissionControl.StatusPage.Api.Functions.HttpTrigger
 {

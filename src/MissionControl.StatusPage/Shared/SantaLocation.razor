@@ -1,0 +1,45 @@
+﻿@using SantaTracker.Shared.Models
+
+<style>
+    .my-card {
+        --card-height: auto;
+
+        margin-bottom: 30px;
+    }
+
+    .my-card-heading {
+        padding: 20px;
+    }
+</style>
+
+@if (CurrentLocation == null) {
+  <p>North Pole</p>
+}
+else
+{
+    @if (@CurrentLocation.Speed == 0) 
+    {
+      <p>Left Canadian airspace</p>
+    }
+    else
+    {
+        <div class="card my-card">
+            <div class="card-header bg-info my-card-heading text-white">Santa Current Location</div>                    
+            <div class="card-body">
+                <h5 class="card-title">@CurrentLocation.DepartureCity -> @CurrentLocation.ArrivalCity</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Route Number: @CurrentLocation.RouteNumber</h6>
+                <p class="card-text">Speed: @CurrentLocation.Speed mph</p>          
+                <p class="card-text">Altitude: @CurrentLocation.Altitude feet</p>          
+                <p class="card-text">Remaining minutes: @CurrentLocation.RemainingMinutes</p>          
+                <p class="card-text">Remaining miles: @CurrentLocation.RemainingMiles</p>          
+                <p class="card-text">Latitude: @CurrentLocation.Latitude</p>          
+                <p class="card-text">Longitude: @CurrentLocation.Longitude</p>                  
+            </div>
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public LocationEvent? CurrentLocation { get; set; }
+}

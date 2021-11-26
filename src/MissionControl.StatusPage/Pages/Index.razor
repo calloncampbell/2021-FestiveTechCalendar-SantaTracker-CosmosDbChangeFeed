@@ -1,9 +1,129 @@
 ﻿@page "/"
+@using MissionControl.StatusPage.Shared
+@using Newtonsoft.Json
+@using SantaTracker.Shared.Models
+@inject HttpClient Http
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Santa Tracker</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="clearfix">
+    <div class="float-start"><h1>North Pole Mission Control</h1></div>
+    <div class="float-end"><FluentButton Appearance="Appearance.Stealth" @onclick="GetSystemStatusAsync">Refresh</FluentButton></div>
+</div>
 
-Welcome to your new app.
+@if (_santaLocation == null)
+{
+	<p><em>Loading...</em></p>
+    <FluentProgressRing />    
+}
+else
+{
+    <SantaLocation CurrentLocation=_santaLocation.CurrentLocation />
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <h3 style="margin-top: 30px;">Visited Cities</h3>
+
+    @if (_flightSegments != null)
+    {
+	    <FluentAccordion>
+            @foreach (var flight in _flightSegments.FlightSegments)
+            {
+                if (flight.IsComplete)
+                {
+                    <FluentAccordionItem class="alert-success">
+                        <div slot="start">
+                            <span class="oi oi-check me-2" aria-hidden="true"></span>
+                        </div>
+                        <span slot="heading">@flight.ArrivalCity</span>
+                        <p>Arrival time: @flight.ArrivalTime</p>
+                    </FluentAccordionItem>
+                }
+                else
+                {
+                    <FluentAccordionItem class="alert-info">
+                        <div slot="start">
+                            <span class="oi oi-warning me-2" aria-hidden="true"></span>
+                        </div>
+                        <span slot="heading">@flight.ArrivalCity</span>
+                        <p>Arrival time: @flight.ArrivalTime</p>
+                    </FluentAccordionItem>                
+                }
+            }       
+        </FluentAccordion>
+    }
+
+    <h3 style="margin-top: 30px;">System Status</h3>
+
+    @if (_systemStatus != null)
+    {
+	    <FluentAccordion>
+            @foreach (var app in _systemStatus)
+            {
+                if (app.Status == SantaTracker.Shared.Enums.AppStatusType.Online)
+                {
+                    <FluentAccordionItem class="alert-success">
+                        <div slot="start">
+                            <span class="oi oi-check me-2" aria-hidden="true"></span>
+                        </div>
+                        <span slot="heading">@app.Name</span>
+                        <p>Status: @app.StatusName</p>
+                    </FluentAccordionItem>
+                }
+                else
+                {
+                    <FluentAccordionItem class="alert-secondary">
+                        <div slot="start">
+                            <span class="oi oi-warning me-2" aria-hidden="true"></span>
+                        </div>
+                        <span slot="heading">@app.Name</span>
+                        <p>Status: @app.StatusName</p>
+                    </FluentAccordionItem>                
+                }
+            }       
+        </FluentAccordion>
+    }
+}
+
+@code 
+{
+    private SantaLocationResponse? _santaLocation;
+    private FlightSegmentStatusResponse? _flightSegments;
+    private List<AppStatus>? _systemStatus;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GetSystemStatusAsync();
+    }
+
+    protected async Task GetSystemStatusAsync()
+    {
+        try
+        {
+            var response1 = await Http.GetAsync("api/CurrentLocationFunction");
+            var content1 = response1?.Content == null ? null : await response1.Content.ReadAsStringAsync();
+            if (!string.IsNullOrWhiteSpace(content1))
+            {
+                _santaLocation = JsonConvert.DeserializeObject<SantaLocationResponse>(content1);
+            }
+            
+            var response2 = await Http.GetAsync("api/DeliveryBoardFunction");
+            var content2 = response2?.Content == null ? null : await response2.Content.ReadAsStringAsync();
+            if (!string.IsNullOrWhiteSpace(content2))
+            {
+                _flightSegments = JsonConvert.DeserializeObject<FlightSegmentStatusResponse>(content2);
+            }
+
+            var response3 = await Http.GetAsync("api/StatusFunction");
+            var content3 = response3?.Content == null ? null : await response3.Content.ReadAsStringAsync();
+            if (!string.IsNullOrWhiteSpace(content3))
+            {
+                _systemStatus = JsonConvert.DeserializeObject<List<AppStatus>>(content3);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            // TODO
+        }
+    }
+}
