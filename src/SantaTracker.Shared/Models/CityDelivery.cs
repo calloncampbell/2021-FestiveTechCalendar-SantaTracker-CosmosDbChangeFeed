@@ -21,8 +21,14 @@ namespace SantaTracker.Shared.Models
         [JsonProperty("departureCity")]
         public string DepartureCity { get; set; }
 
+        [JsonProperty("departureCityName")]
+        public string DepartureCityName { get; set; }
+
         [JsonProperty("arrivalCity")]
         public string ArrivalCity { get; set; }
+
+        [JsonProperty("arrivalCityName")]
+        public string ArrivalCityName { get; set; }
 
         [JsonProperty("remainingMinutes")]
         public double RemainingMinutes { get; set; }

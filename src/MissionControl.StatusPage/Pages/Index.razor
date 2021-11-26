@@ -22,7 +22,11 @@ else
 
     <h3 style="margin-top: 30px;">Visited Cities</h3>
 
-    @if (_flightSegments != null)
+    @if (_flightSegments == null || !_flightSegments.FlightSegments.Any())
+    {
+        <p>Coming December 24</p>
+    }
+    else
     {
 	    <FluentAccordion>
             @foreach (var flight in _flightSegments.FlightSegments)
@@ -33,7 +37,8 @@ else
                         <div slot="start">
                             <span class="oi oi-check me-2" aria-hidden="true"></span>
                         </div>
-                        <span slot="heading">@flight.ArrivalCity</span>
+                        <span slot="heading">@flight.ArrivalCity - @flight.ArrivalCityName</span>
+                        <p>Status: Arrived</p>
                         <p>Arrival time: @flight.ArrivalTime</p>
                     </FluentAccordionItem>
                 }
@@ -41,10 +46,12 @@ else
                 {
                     <FluentAccordionItem class="alert-info">
                         <div slot="start">
-                            <span class="oi oi-warning me-2" aria-hidden="true"></span>
+                            <span class="oi oi-location me-2" aria-hidden="true"></span>
                         </div>
-                        <span slot="heading">@flight.ArrivalCity</span>
-                        <p>Arrival time: @flight.ArrivalTime</p>
+                        <span slot="heading">@flight.ArrivalCity - @flight.ArrivalCityName</span>
+                        <p>Status: Enroute</p>
+                        <p>Time to arrival: @flight.RemainingMinutes minutes</p>
+                        <p>Distance to arrival: @flight.RemainingMinutes miles</p>
                     </FluentAccordionItem>                
                 }
             }       
@@ -88,11 +95,17 @@ else
     private SantaLocationResponse? _santaLocation;
     private FlightSegmentStatusResponse? _flightSegments;
     private List<AppStatus>? _systemStatus;
+    private System.Threading.Timer timer;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await GetSystemStatusAsync();
+        
+        timer = new System.Threading.Timer(async (object stateInfo) =>
+		{
+			await GetSystemStatusAsync();
+			StateHasChanged(); // MUST CALL StateHasChanged() BECAUSE THIS IS TRIGGERED BY A TIMER INSTEAD OF A USER EVENT
+		}, new System.Threading.AutoResetEvent(false), 1000, 1000);
     }
 
     protected async Task GetSystemStatusAsync()

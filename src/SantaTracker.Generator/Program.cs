@@ -71,11 +71,11 @@ namespace SantaTracker.Generator
 					var continuous = (arg1 == "-c");
 					await _generator.GenerateData(continuous);
 				}
-				else if (operation.Matches("airports"))
+				else if (operation.Matches("cities"))
 				{
 					await ShowCities();
 				}
-				else if (operation.Matches("flights"))
+				else if (operation.Matches("segments"))
 				{
 					await ShowFlightSegments();
 				}

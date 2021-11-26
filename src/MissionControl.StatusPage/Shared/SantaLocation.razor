@@ -12,8 +12,10 @@
     }
 </style>
 
-@if (CurrentLocation == null) {
-  <p>North Pole</p>
+@if (CurrentLocation == null) 
+{
+    <h3 style="margin-top: 30px;">Santa Current Location</h3>
+    <p>North Pole</p>
 }
 else
 {
@@ -27,11 +29,12 @@ else
             <div class="card-header bg-info my-card-heading text-white">Santa Current Location</div>                    
             <div class="card-body">
                 <h5 class="card-title">@CurrentLocation.DepartureCity -> @CurrentLocation.ArrivalCity</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@CurrentLocation.DepartureCityName -> @CurrentLocation.ArrivalCityName</h6>
                 <h6 class="card-subtitle mb-2 text-muted">Route Number: @CurrentLocation.RouteNumber</h6>
                 <p class="card-text">Speed: @CurrentLocation.Speed mph</p>          
                 <p class="card-text">Altitude: @CurrentLocation.Altitude feet</p>          
-                <p class="card-text">Remaining minutes: @CurrentLocation.RemainingMinutes</p>          
-                <p class="card-text">Remaining miles: @CurrentLocation.RemainingMiles</p>          
+                <p class="card-text">Time to arrival: @CurrentLocation.RemainingMinutes minutes</p>
+                <p class="card-text">Distance to arrival: @CurrentLocation.RemainingMinutes miles</p> 
                 <p class="card-text">Latitude: @CurrentLocation.Latitude</p>          
                 <p class="card-text">Longitude: @CurrentLocation.Longitude</p>                  
             </div>

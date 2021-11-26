@@ -13,6 +13,7 @@ namespace SantaTracker.Generator
     public class TelemetryGenerator
     {
         private const int TelemetryIntervalMs = 10;
+		private const int AverageFlightSpeed = 5000; // mph
 
 		private readonly City[] _cities = new[]
 		{
@@ -191,7 +192,7 @@ namespace SantaTracker.Generator
 				var departureAirport = this._cities.First(a => a.Code == segment.DepartureCity);
 				var arrivalAirport = this._cities.First(a => a.Code == segment.ArrivalCity);
 				var distance = this._spatial.CalculateDistance(departureAirport.Latitude, departureAirport.Longitude, arrivalAirport.Latitude, arrivalAirport.Longitude);
-				var duration = (distance / 5000) * 60;  // assume 500 mph
+				var duration = (distance / AverageFlightSpeed) * 60;  // assume 5000 mph
 				var arrivalTime = DateTime.UtcNow.AddMinutes(duration);
 
 				segment.Id = segment.RouteNumber.ToString();
@@ -199,7 +200,8 @@ namespace SantaTracker.Generator
 				segment.Latitude = departureAirport.Latitude;
 				segment.Longitude = departureAirport.Longitude;
 				segment.DistanceMiles = Convert.ToInt32(distance);
-				//segment.ArrivalTime = arrivalTime;
+				segment.DepartureCityName = $"{departureAirport.Name}, {departureAirport.Region}, {departureAirport.Country}";
+				segment.ArrivalCityName = $"{arrivalAirport.Name}, {arrivalAirport.Region}, {arrivalAirport.Country}";
 				segment.DurationMinutes = Math.Round(duration, 2);
 
 				await container.CreateItemAsync(segment, new PartitionKey(segment.Type));
@@ -364,7 +366,7 @@ namespace SantaTracker.Generator
 				ctr++;
 				var arrivalCity = this._cities.First(a => a.Code == flight.ArrivalCity);
 				var remainingMiles = (int)this._spatial.CalculateDistance(flight.Latitude, flight.Longitude, arrivalCity.Latitude, arrivalCity.Longitude);
-				var remainingMinutes = remainingMiles / 5000.0 * 60;  // assume 500 mph
+				var remainingMinutes = remainingMiles / Convert.ToDouble(AverageFlightSpeed) * 60;
 
 				if (flight.RouteNumber != _currentFlightSegment.ToString())
 				{
@@ -388,12 +390,14 @@ namespace SantaTracker.Generator
 					FlightNumber = DateTime.Today.Year.ToString(),
 					RouteNumber = flight.RouteNumber,
 					DepartureCity = flight.DepartureCity,
+					DepartureCityName = flight.DepartureCityName,
 					ArrivalCity = flight.ArrivalCity,
+					ArrivalCityName = flight.ArrivalCityName,
 					DurationMinutes = flight.DurationMinutes,
 					RemainingMinutes = remainingMinutes,
 					DistanceMiles = flight.DistanceMiles,
 					RemainingMiles = remainingMiles,
-					ArrivalTime = flight.ArrivalTime,
+					ArrivalTime = arrivalTime,
 					Latitude = flight.Latitude,
 					Longitude = flight.Longitude,
 					Altitude = speedAndAltitude.Altitude,
@@ -447,7 +451,7 @@ namespace SantaTracker.Generator
 
 				speedAndAltitude = new SpeedAltitudeEvent
 				{
-					Speed = this._random.Number(4900, 5100),
+					Speed = this._random.Number(AverageFlightSpeed-100, AverageFlightSpeed+100),
 					Altitude = this._random.Number(37000, 38000),
 					Timestamp = DateTime.Now,
 				};
