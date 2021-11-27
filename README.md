@@ -20,7 +20,7 @@ The change feed in Azure Cosmos DB is one of the most overlooked features of Mic
 
 ### Technologies
 
-- Cosmos DB
+- Cosmos DB (SQL API)
 - Cosmos DB Change Feed
 - .NET 6.0
 - Azure Functions v4 - Using CosmosDbTrigger Functions
