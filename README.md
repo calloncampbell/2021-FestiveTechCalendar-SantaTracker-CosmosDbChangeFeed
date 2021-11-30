@@ -8,14 +8,15 @@ Help the elves track every event that happens this holiday season.
 
 The change feed in Azure Cosmos DB is one of the most overlooked features of Microsoft’s globally distributed, massively scalable, multi-model database service. Similar to the transaction log of a relational database, the change feed is a persistent record of changes to a container in the order they occurred. It therefore serves as an excellent event source for a wide range of cloud-based microservices targeting ecommerce, IoT, and other large-scale scenarios.
 
-## Reference Application -  Santa Tracker
+## Reference Application - Santa Tracker
 
   ![](./assets/images/architecture.png)
 
 - Ingest telemetry of Santa's location into Cosmos DB
-- Using the Materialized View pattern, consume the Cosmos DB Change with multiple microservice (Azure Functions)
-  - Current Location
-  - Delivery Board (cities visited)
+- Consume the Cosmos DB Change with multiple microservices (Azure Functions):
+  - Current Location (materialized view)
+  - Delivery Board (materialized view)
+  - Archive Data (move data to Azure Storage)
 - Mission Control Blazor dashboard to keep an eye on everything
 
 ### Technologies
@@ -26,6 +27,7 @@ The change feed in Azure Cosmos DB is one of the most overlooked features of Mic
 - Azure Storage
 - .NET 6.0
 - Blazor WebAssembly
+- Latest Azure SDKs
 
 ## References
 
