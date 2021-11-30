@@ -60,6 +60,9 @@ namespace SantaTracker.Shared.Models
         [JsonProperty("isComplete")]
         public bool IsComplete { get; set; }
 
+        [JsonProperty("eventDate")]
+        public DateTimeOffset EventDate { get; set; }
+
         [JsonProperty("ttl")]
         public int Ttl { get; set; }
     }

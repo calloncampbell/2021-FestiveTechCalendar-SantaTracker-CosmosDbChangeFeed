@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SantaTracker.Microservice.DataArchival": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --port 7075 --pause-on-error"
+    }
+  }
+}

@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaTracker.Microservice.DataArchival", "SantaTracker.Microservice.DataArchival\SantaTracker.Microservice.DataArchival.csproj", "{557F219C-25F2-408A-BF30-DDC82AC879F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{557F219C-25F2-408A-BF30-DDC82AC879F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{557F219C-25F2-408A-BF30-DDC82AC879F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{557F219C-25F2-408A-BF30-DDC82AC879F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{557F219C-25F2-408A-BF30-DDC82AC879F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{C09AB46F-85EF-480E-B36A-0999AA3770CE} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
 		{A0E7FB2D-E633-4DA5-B6D7-FBA74F17F761} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
 		{F3B2BDA1-C2EB-4918-8873-1F8DDD3DFAE2} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
+		{557F219C-25F2-408A-BF30-DDC82AC879F4} = {E5C05D25-0419-45B0-87CF-4CE1F5EFA025}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {950CEAEF-5F4D-4B70-9212-5306929AD4CD}

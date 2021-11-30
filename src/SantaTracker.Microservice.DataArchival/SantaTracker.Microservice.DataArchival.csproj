@@ -1,12 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <UserSecretsId>e863a0c5-9246-4654-8bfb-1d46bd2561ed</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+	<PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
+	<PackageReference Include="Microsoft.Azure.Cosmos" Version="3.23.0" />
+	<PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+	<PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="4.0.1" />
+	<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.10" />
+	<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="4.0.4" />
+	<PackageReference Include="Microsoft.Extensions.Azure" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SantaTracker.Shared\SantaTracker.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

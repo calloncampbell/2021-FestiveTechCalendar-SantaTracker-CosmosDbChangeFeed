@@ -14,6 +14,7 @@ namespace SantaTracker.Generator
     {
         private const int TelemetryIntervalMs = 10;
 		private const int AverageFlightSpeed = 5000; // mph
+		private const int TelemetryRetentionDays = 30;
 
 		private readonly City[] _cities = new[]
 		{
@@ -402,7 +403,8 @@ namespace SantaTracker.Generator
 					Longitude = flight.Longitude,
 					Altitude = speedAndAltitude.Altitude,
 					Speed = speedAndAltitude.Speed,
-					Ttl = 30 * 60 * 60 * 24,
+					EventDate = DateTimeOffset.UtcNow,
+					Ttl = GetDocumentTimeToLive()
 				};
 
 				if ((remainingMiles < 20) && !continuous)
@@ -555,6 +557,12 @@ namespace SantaTracker.Generator
 			}
 
 			return errorCtr;
+		}
+
+		private int GetDocumentTimeToLive()
+		{
+			// Number of days to retain flight telemetry
+			return 60 * 60 * 24 * TelemetryRetentionDays;
 		}
 
 		private bool Confirm(string message)
