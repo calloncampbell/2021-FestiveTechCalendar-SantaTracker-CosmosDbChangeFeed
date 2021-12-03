@@ -68,10 +68,12 @@ namespace SantaTracker.Microservice.DeliveryBoard.Functions.CosmosDbTrigger
 
         private bool ShouldSkip(CityDelivery delivery)
         {
-            if (delivery.IsComplete)   // Make sure not to miss the last location event
+            // Make sure not to miss the last location event
+            if (delivery.IsComplete)
             {
                 return false;
             }
+
             // Throttle continuous processing by delaying between updates of the same city to the DeliveryBoard container
             lock (_threadLock)
             {

@@ -88,7 +88,7 @@ namespace SantaTracker.Microservice.DataArchival.Functions.CosmosDbTrigger
                 return false;
             }
 
-            // Throttle continuous processing by delaying between archivals of the same flight to blob storage
+            // Throttle continuous processing by delaying between archival of the same flight to blob storage
             lock (_threadLock)
             {
                 if (_timestamps.ContainsKey(locationEvent.FlightNumber))

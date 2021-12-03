@@ -68,10 +68,12 @@ namespace SantaTracker.Microservice.CurrentLocation.Functions
 
         private bool ShouldSkip(LocationEvent locationEvent)
         {
-            if (locationEvent.IsComplete)   // Make sure not to miss the last location event
+            // Make sure not to miss the last location event
+            if (locationEvent.IsComplete)   
             {
                 return false;
             }
+
             // Throttle continuous processing by delaying between updates of the same Flight Number to the CurrentLocation container
             lock (_threadLock)
             {
