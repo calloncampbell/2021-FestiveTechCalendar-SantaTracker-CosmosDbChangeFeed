@@ -211,7 +211,7 @@ namespace SantaTracker.Generator
 			Console.WriteLine($"Created {this._flightSegments.Length} flight segments");
 		}
 
-		public async Task ResetFlightSegments(bool all)
+		public async Task ResetFlightSegments()
 		{
 			var cities = await this._flightRepo.GetCities();
 			var flights = await this._flightRepo.GetFlightSegments();
@@ -219,17 +219,14 @@ namespace SantaTracker.Generator
 			// CurrentLocation container
 			var container = Cosmos.Client.GetContainer(Constants.CosmosDb.DatabaseName, Constants.CosmosDb.CurrentLocationContainerName);
 			var ctr = 0;
-			//foreach (var flight in flights)
-			//{
-				try
-				{
-					await container.DeleteItemAsync<object>(DateTime.Now.Year.ToString(), new PartitionKey("location"));
-					ctr++;
-				}
-				catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
-				{
-				}
-			//}
+			try
+			{
+				await container.DeleteItemAsync<object>(DateTime.Now.Year.ToString(), new PartitionKey("location"));
+				ctr++;
+			}
+			catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+			{
+			}			
 			Console.WriteLine($"Deleted {ctr} current locations");
 
 			// DeliveryBoard container
@@ -246,35 +243,12 @@ namespace SantaTracker.Generator
 				{
 				}
 			}
-			Console.WriteLine($"Deleted {ctr} city deliveries");
-
-			if (all)
-			{
-				// Location container
-				container = Cosmos.Client.GetContainer(Constants.CosmosDb.DatabaseName, Constants.CosmosDb.LocationContainerName);
-				ctr = 0;
-				foreach (var flight in flights)
-				{
-					var result = await this._flightRepo.QueryLocation(flight.RouteNumber.ToString());
-					var location = result.LocationEvent;
-					if (location != null)
-					{
-						var city = cities.First(a => a.Code == location.DepartureCity);
-						location.Latitude = city.Latitude;
-						location.Longitude = city.Longitude;
-						location.RemainingMiles = 0;
-						location.RemainingMinutes = 0;
-						await container.ReplaceItemAsync(location, location.Id, new PartitionKey(location.Id));
-						ctr++;
-					}
-				}
-				Console.WriteLine($"Cleared {ctr} flight segment locations");
-			}
+			Console.WriteLine($"Deleted {ctr} city deliveries");			
 		}
 
-		public async Task GenerateData(bool continuous)
+		public async Task GenerateData()
 		{
-			Console.Write($"Press any key to start generating telemetry {(continuous ? "continuously" : "through flight segment completion")}, or ESC to cancel... ");
+			Console.Write($"Press any key to start generating telemetry through flight segment completion, or ESC to cancel... ");
 
 			var key = Console.ReadKey(true);
 			if (key.KeyChar == (char)27)
@@ -309,7 +283,7 @@ namespace SantaTracker.Generator
 				while (!Console.KeyAvailable)
 				{
 					var elapsed = DateTime.UtcNow.Subtract(started);
-					var telemetry = this.GenerateTelemetry(continuous);
+					var telemetry = this.GenerateTelemetry();
 					if (telemetry.Count == 0)
 					{
 						allFlightsComplete = true;
@@ -321,7 +295,7 @@ namespace SantaTracker.Generator
 						var rate = Math.Round(this._telemetryCount / elapsed.TotalSeconds, 0);
 						this._errorCount += errorCount;
 						Console.SetCursorPosition(0, 0);							
-						Console.WriteLine($"Flights={this._flightSegments.Length}; Count={this._telemetryCount} ({rate}/sec); Errors={this._errorCount}; Elapsed={elapsed}");
+						Console.WriteLine($"Flight Segments={this._flightSegments.Length}; Telemetry Count={this._telemetryCount} ({rate}/sec); Errors={this._errorCount}; Elapsed={elapsed}");
 						await Task.Delay(TelemetryIntervalMs);
 					}
 				}
@@ -351,11 +325,12 @@ namespace SantaTracker.Generator
 			Console.WriteLine($"Stopped after generating {this._telemetryCount} telemetry items for {this._flightSegments.Length} flight segments with {this._errorCount} errors");
 		}
 
-		private List<LocationEvent> GenerateTelemetry(bool continuous)
+		private List<LocationEvent> GenerateTelemetry()
 		{
 			Console.SetCursorPosition(0, 4);
 			var list = new List<LocationEvent>();
 			var ctr = 0;
+
             foreach (var flight in this._flightSegments)
             {
 				if (this._completedFlightSegments.Contains(flight.RouteNumber))
@@ -407,7 +382,7 @@ namespace SantaTracker.Generator
 					Ttl = GetDocumentTimeToLive()
 				};
 
-				if ((remainingMiles < 20) && !continuous)
+				if (remainingMiles < 20)
 				{
 					item.Speed = 0;
 					item.Altitude = 0;
@@ -433,7 +408,7 @@ namespace SantaTracker.Generator
 					continue;
 				}
 
-				this.NudgeFlight(flight, continuous);
+				this.NudgeFlight(flight);
 			}
 
 			return list;
@@ -471,7 +446,7 @@ namespace SantaTracker.Generator
 			}
 		}
 
-		private void NudgeFlight(FlightSegment flight, bool continuous)
+		private void NudgeFlight(FlightSegment flight)
 		{
 			while (true)
 			{
@@ -487,7 +462,7 @@ namespace SantaTracker.Generator
 				var arrivalAirport = this._cities.First(a => a.Code == flight.ArrivalCity);
 				var prevRemainingDistance = this._spatial.CalculateDistance(lat, lon, arrivalAirport.Latitude, arrivalAirport.Longitude);
 
-				if ((prevRemainingDistance < 10) && !continuous)
+				if (prevRemainingDistance < 10)
 				{
 					// Complete the flight if we're within 10 mi of our arrival airport
 					break;
@@ -496,7 +471,7 @@ namespace SantaTracker.Generator
 				// Get the new distance to the arrival airport
 				var newRemainingDistance = this._spatial.CalculateDistance(flight.Latitude, flight.Longitude, arrivalAirport.Latitude, arrivalAirport.Longitude);
 
-				if ((newRemainingDistance < 20) && continuous)
+				if (newRemainingDistance < 20)
 				{
 					// Restart the flight if we're within 10 mi of our arrival airport
 					var departureAirport = this._cities.First(a => a.Code == flight.DepartureCity);
