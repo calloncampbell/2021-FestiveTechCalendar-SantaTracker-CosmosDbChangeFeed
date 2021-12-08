@@ -1,0 +1,11 @@
+### Welcome
+GET http://localhost:7074/api/welcomeFunction
+
+### Santa's Location
+GET http://localhost:7074/api/currentLocationFunction
+
+### Visited Cities
+GET http://localhost:7074/api/deliveryBoardFunction
+
+### System Status
+GET http://localhost:7074/api/statusFunction

@@ -29,6 +29,8 @@ namespace SantaTracker.Microservice.CurrentLocation.Functions
                 ConnectionStringSetting = Constants.CosmosDb.Connection,
                 LeaseCollectionName = Constants.CosmosDb.LeaseContainerName,                
                 LeaseCollectionPrefix = "CurrentLocation-",
+                //StartFromBeginning = false, // OPTIONAL
+                //StartFromTime ="2021-02-16T14:19:29Z", // OPTIONAL
                 CreateLeaseCollectionIfNotExists = true)]
             IReadOnlyList<Document> input,
             ILogger log)

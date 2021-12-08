@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{1D52A80B-ACDD-49FE-BEF6-4A9F976B8E06}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+		..\tests\rest-client-tests\santa-tracker-status-api.http = ..\tests\rest-client-tests\santa-tracker-status-api.http
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaTracker.Microservice.DataArchival", "SantaTracker.Microservice.DataArchival\SantaTracker.Microservice.DataArchival.csproj", "{557F219C-25F2-408A-BF30-DDC82AC879F4}"
