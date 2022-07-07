@@ -86,7 +86,7 @@ namespace SantaTracker.Generator
 		{
 			(Constants.CosmosDb.LeaseContainerName, "/id", 400, false, null),				// for CFP Library
 			(Constants.CosmosDb.MetaDataContainerName, "/type", 400, false, null),			// for small lookup lists; pk=city/flightSegment; id=City Code/Route Number
-			(Constants.CosmosDb.LocationContainerName, "/id", 1000, true, null),			// for ingestion; pk/id = GUID
+			(Constants.CosmosDb.LocationContainerName, "/id", 1000, false, null),			// for ingestion; pk/id = GUID
 			(Constants.CosmosDb.CurrentLocationContainerName, "/type", 400, false, null),	// for CurrentLocation microservice; pk=location; id=Flight Number
 			(Constants.CosmosDb.DeliveryBoardContainerName, "/type", 400, false, null),		// for DeliveryBoard microservice; pk=delivery; id=City Code
 		};
@@ -98,8 +98,8 @@ namespace SantaTracker.Generator
 				return;
 			}
 
-			await this.CreateDatabase();
-			await this.CreateContainers();
+			//await this.CreateDatabase();
+			//await this.CreateContainers();
 			await this.CreateCities();
 			await this.CreateFlightSegments();
 		}
