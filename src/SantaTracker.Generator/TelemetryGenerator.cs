@@ -86,7 +86,7 @@ namespace SantaTracker.Generator
 		{
 			(Constants.CosmosDb.LeaseContainerName, "/id", 400, false, null),				// for CFP Library
 			(Constants.CosmosDb.MetaDataContainerName, "/type", 400, false, null),			// for small lookup lists; pk=city/flightSegment; id=City Code/Route Number
-			(Constants.CosmosDb.LocationContainerName, "/id", 1000, false, null),			// for ingestion; pk/id = GUID
+			(Constants.CosmosDb.LocationContainerName, "/id", 1000, true, null),			// for ingestion; pk/id = GUID
 			(Constants.CosmosDb.CurrentLocationContainerName, "/type", 400, false, null),	// for CurrentLocation microservice; pk=location; id=Flight Number
 			(Constants.CosmosDb.DeliveryBoardContainerName, "/type", 400, false, null),		// for DeliveryBoard microservice; pk=delivery; id=City Code
 		};
@@ -391,7 +391,7 @@ namespace SantaTracker.Generator
 					item.IsComplete = true;					
 				}
 
-				Console.WriteLine($"{item.RouteNumber,6}  {item.DepartureCity} > {item.ArrivalCity}    {flight.ArrivalTime:HH:mm}   {flight.DistanceMiles,4} mi   {Math.Round(flight.DurationMinutes / 60, 2),-4} hr    {remainingMiles,4} mi, {Math.Round(remainingMinutes / 60, 2),-4:0.00} hr   {item.Speed} mph  {item.Altitude} ft {item.Latitude,9:##00.0000}, {item.Longitude,9:##00.0000}   ");
+				Console.WriteLine($"{item.RouteNumber,6}  {item.DepartureCity} > {item.ArrivalCity}       {flight.ArrivalTime:HH:mm}   {flight.DistanceMiles,4} mi    {Math.Round(flight.DurationMinutes / 60, 2),-4} hr  {remainingMiles,4} mi,  {Math.Round(remainingMinutes / 60, 2),-4:0.00} hr    {item.Speed} mph {item.Altitude} ft {item.Latitude,9:##00.0000}, {item.Longitude,9:##00.0000}   ");
 				list.Add(item);
 				this._telemetryCount++;
 

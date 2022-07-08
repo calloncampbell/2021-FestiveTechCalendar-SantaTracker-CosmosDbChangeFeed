@@ -5,15 +5,6 @@
     <UserSecretsId>b36ab30f-6c40-411e-8ba6-b23a9ad54b25</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="local.settings.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="local.settings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
 	  <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.23.0" />
 	  <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
 	  <PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="4.0.1" />
