@@ -1,4 +1,4 @@
-name: Static Web App Deploy
+name: Azure Static Web App Deploy
 
 on:
   push:

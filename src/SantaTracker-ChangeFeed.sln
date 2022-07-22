@@ -29,6 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaTracker.Microservice.D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{327BD138-9739-4A1F-A7F4-18D36D2E646C}"
 	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\azure-static-web-apps-ambitious-bush-08326e30f.yml = ..\.github\workflows\azure-static-web-apps-ambitious-bush-08326e30f.yml
 		..\.github\workflows\azure-static-web-apps-gentle-meadow-0e1815a0f.yml = ..\.github\workflows\azure-static-web-apps-gentle-meadow-0e1815a0f.yml
 	EndProjectSection
 EndProject
