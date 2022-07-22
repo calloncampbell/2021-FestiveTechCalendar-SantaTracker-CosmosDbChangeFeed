@@ -1,6 +1,10 @@
 name: Azure Static Web App Deploy
 
 on:
+  workflow_dispatch:
+    branches:
+      - master
+      - gab-demo
   push:
     branches:
       - gab-demo
