@@ -1,4 +1,4 @@
-# Festive Tech Calendar 2021
+# Festive Tech Calendar 2021 - Cosmos DB Change Feed
 
   ![](./assets/images/hero.png)
 
@@ -6,7 +6,7 @@
 
 Help the elves track every event that happens this holiday season.
 
-The change feed in Azure Cosmos DB is one of the most overlooked features of Microsoft’s globally distributed, massively scalable, multi-model database service. Similar to the transaction log of a relational database, the change feed is a persistent record of changes to a container in the order they occurred. It therefore serves as an excellent event source for a wide range of cloud-based microservices targeting ecommerce, IoT, and other large-scale scenarios.
+The change feed in Azure Cosmos DB is one of the most overlooked features of Microsoftâ€™s globally distributed, massively scalable, multi-model database service. Similar to the transaction log of a relational database, the change feed is a persistent record of changes to a container in the order they occurred. It therefore serves as an excellent event source for a wide range of cloud-based microservices targeting ecommerce, IoT, and other large-scale scenarios.
 
 ## Reference Application - Santa Tracker
 
